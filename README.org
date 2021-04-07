@@ -1,2 +1,5 @@
 * Bodyport Take home assessment 
 /Tue Apr 6, 2021/
+
+** Start the virtual environment
+source env/bin/activate
