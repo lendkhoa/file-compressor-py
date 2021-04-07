@@ -3,3 +3,14 @@
 
 ** Start the virtual environment
 source env/bin/activate
+
+
+* Note
+/// relative path
+//// absolute path
+
+*** Create db
+python3 teminal
+> from app import db
+> db.create_all()
+> exit()
