@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block head %}
+<h1> Compression results </h1>
+{% endblock %}
+
+{% block body %}
+<table class="table">
+
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Original file name</th>
+            <th scope="col">Original file size</th>
+            <th scope="col">Compressed file name</th>
+            <th scope="col">Compressed file size</th>
+            <th scope="col">Compression ration</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>Otto</td>
+            <td>Otto</td>
+            <td>Otto</td>
+            <td>Download</td>
+        </tr>
+
+        <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>Thornton</td>
+            <td>Thornton</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+        </tr>
+
+    </tbody>
+
+</table>
+
+{% endblock %}
