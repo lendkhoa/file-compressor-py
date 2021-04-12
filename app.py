@@ -23,54 +23,45 @@ class Todo(db.Model):
 class BinaryFile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(200), nullable=False)
-    blob = db.Column(db.LargeBinary)
+    data = db.Column(db.LargeBinary)
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    if request.method == "POST":
-        task_content = request.form['content']
-        new_task = Todo(content=task_content)
-        # push to db
-        try:
-            db.session.add(new_task)
-            db.session.commit()
-            return redirect('/')
-        except Exception as e:
-            print(e)
-            return "Exception"
-    else:
-        # query the table
-        tasks = Todo.query.order_by(Todo.date_created).all()
-        files = BinaryFile.query.all()
-        return render_template('index.html', tasks=tasks, files = files)
+    files = BinaryFile.query.all()
+    return render_template('index.html', files = files)
 
 @app.route('/software_design')
 def render_design():
     return render_template('software_design.html')
 
-@app.route('/uploader', methods = ['GET', 'POST'])
+@app.route('/uploader', methods = ['POST'])
 def upload_file():
-   if request.method == 'POST':
-      f = request.files['file']
-      file_name = f.filename
-      with open(file_name, 'br') as f:
-          content = f.read()
-          print(type(content))
-          hexa = binascii.hexlify(content)
-          print(type(hexa))
+    f = request.files['file']
+    if f.filename == '':
+        return redirect('/')
 
-      #new_file = BinaryFile(file_name=file_name, )
-      return hexa
+    file_name = f.filename
+    new_file = BinaryFile(file_name=file_name, data=f.read())
+    try:
+        db.session.add(new_file)
+        db.session.commit()
+        return redirect('/')
+    except Exception as e:
+        return "Exception uploading file"
 
 @app.route('/delete/<int:id>')
 def delete(id):
-    task_to_delete = Todo.query.get_or_404(id)
+    file_to_delete = BinaryFile.query.get_or_404(id)
     try:
-        db.session.delete(task_to_delete)
+        db.session.delete(file_to_delete)
         db.session.commit()
         return redirect('/')
     except Exception as e:
         print(e)
+
+@app.route('/compress/<int:id>')
+def compress(id):
+    return render_template('/compression_result.html')
 
 def read_file():
     f_in = open('sample_ecg_raw.bin', 'rb')

@@ -6,33 +6,8 @@
 
 {% block body %}
 <div class="content">
-    <h1>Task Master</h1>
-    <form action="/" method="POST">
-        <input type="text" name="content" id="content">
-        <input type="submit" value="Add Task">
-    </form>
-    <br/>
-    <table class="table">
-        <tr>
-            <td>Task</td>
-            <td>Added</td>
-            <td>Actions</td>
-        </tr>
-        {% for task in tasks %}
-        <tr>
-            <td>{{ task.content }}</td>
-            <td> { task.date_created.date() {}}</td>
-
-            <td>
-                <a href="/delete/{{task.id}}">Delete</a>
-                <br>
-                <a href="">Update</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    <br/>
-    <form action = "http://localhost:5000/uploader" method = "POST" 
+    <h2> Select file to compress </h2>
+    <form action = "uploader" method = "POST" 
           enctype = "multipart/form-data">
         <input type = "file" name = "file" />
         <input type = "submit"/>
@@ -41,10 +16,15 @@
     <table class="table">
         <tr>
             <td>File</td>
+            <td>Action</td>
         </tr>
         {% for file in files %}
         <tr>
-            <td></td>
+            <td>{{ file.file_name }}</td>
+            <td >
+                <a type="button" class="btn btn-danger" href="/delete/{{file.id}}">Delete</a>
+                <a type="button" class="btn btn-success" href="/compress/{{file.id}}">Compress</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
