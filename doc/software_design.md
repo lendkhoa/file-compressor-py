@@ -9,6 +9,8 @@ The Bodyport system must be able to upload a measurement within a reasonable amo
 **bodyport-assessment/ <br/>**
 &nbsp;  app.py: Application starting point <br/>
 &nbsp;  doc/ Contains software design document <br/>
+&nbsp;  static/ Contains stylesheet and bootstrap <br/>
+&nbsp;  templates/ html templates <br/>
 
 # Build
 pip install -r requirements.txt
