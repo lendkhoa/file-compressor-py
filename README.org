@@ -1,44 +1,16 @@
 * Bodyport Take home assessment 
 /Tue Apr 6, 2021/
 
-** Start the virtual environment
+** Build
 source env/bin/activate
-
-
-* Note
-/// relative path
-//// absolute path
-
+pip install -r requirements.txt
+>Activate virtual environment
 *** Create db
-python3 teminal
+From python3 terminal
+>python3
 > from app import db
 > db.create_all()
 > db.session.commit()
 > exit()
-
-** Compression approach
-*** base64 vs bit stream
-**bit stream** sequence of binary bit
-
-int24s
-
-openssl base64 -in sample_ecg_raw.bin -out sample_compress
-encode binary data to ...
-
-convert to base64 -  stream String - LZ77 (Huffman)
-
-
-** How to interpret xxd output
-The first column reflects the address/position of the data within the file (on the first line of your output it should start with 0000000 unless you have used xxd -s), the last column contains the textual representation of the file content (for bytes which have a printable ASCII value).
-
-There's more than mere byte, of course: the numeric family consists of int(8|16|24|32|64)(s|u)(b|l) (e.g., int32ul) and float(32|64)(b|l), where s = signed, u = unsigned, b = big endian and l = little endian, but we will overlook those for now. By the way, byte is an alias for int8u.
-
-
-
-00002fb2: 00000000 01001001 01101101 00000000 01001101 10000100  .Im.M.
-00002fb8: 00000000 01001000 01100110 00000000 01000100 11101110  .Hf.D.
-00002fbe: 00000000 01000011 00000010 00000000 01000010 11011111  .C..B.
-00002fc4: 00000000 01000101 00110111 00000000 01000111 00001100  .E7.G.
-00002fca: 00000000 01001010 11100000 00000000 01001000 01010010  .J..HR
-00002fd0: 00000000 01001000 10010101 00000000 01001001 00011111  .H..I.
-00002fd6: 00000000 01001000 10101100 00000000 01001000 11100101  .H..H.
+*** Start application
+python3 app.py
