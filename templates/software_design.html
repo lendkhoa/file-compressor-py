@@ -1,4 +1,42 @@
-{% extends 'base.html' %}
-{% block head %}
-<h1> Software Design Document </h1>
-{% endblock %}
+{% extends 'base.html' %}{% block head %}Software Design Document{% endblock %}{% block body2 %}<blockquote>
+<p>Last update Mon Apr 12, 2021</p>
+</blockquote>
+<p>The Bodyport system must be able to upload a measurement within a reasonable amount of time. A key factor is file size - more specifically the file size of the raw signal. Therefore, the software goals are: <br />
+- Support local directory file upload and basic CRUD operations of file <br />
+- Compress selected file using Huffman coding algorithm <br />
+- Display compression analysis <br /></p>
+<h1>Project structure</h1>
+<p><strong>bodyport-assessment/ <br/></strong>
+&nbsp;  app.py: Application starting point <br/>
+&nbsp;  doc/ Contains software design document <br/></p>
+<h1>Build</h1>
+<p>pip install -r requirements.txt</p>
+<blockquote>
+<p>Activate virtual environment <br/>
+source ./env/bin/activate <br/></p>
+</blockquote>
+<h3>Create db</h3>
+<p>From python3 terminal
+<code></p>
+<blockquote>
+<p>python3 <br/>
+from app import db <br/>
+db.create_all() <br/>
+db.session.commit() <br/>
+exit() <br/>
+</code></p>
+</blockquote>
+<h3>Start application</h3>
+<p><code>
+python3 app.py
+</code></p>
+<h1>Compression schema</h1>
+<p>Once a file is selected, the application will use <strong>binascii</strong> library to read the content of the binary file and store it as 'data' in the <strong>BinaryFile</strong> object to be saved as BLOB type to the sql table. The relational <strong>SQLAlchemy</strong> library is used because of ease of implementation and the inherit relational property between files. At the moment, the application only supports uploading file from the same directory, if there is no file found no new row will be inserted. <br /></p>
+<p>A user can view the uploaded files and select <code>compress</code> option to initiate Huffman encoding of the BLOB string. Huffman algorithm will calculate the frequency table and build the encoded tree. Once finishes, the application will store the new compressed file and redirect the user to the analysis page. <br /></p>
+<p>I have been researching <a href="https://www.programiz.com/dsa/huffman-coding">this</a> to implement the compression engine.</p>
+<h1>Future improvements</h1>
+<ol>
+<li>Finish the Huffman encoding and decoding algorithm</li>
+<li>Support file uploading other than local directory</li>
+<li></li>
+</ol>{% endblock %}

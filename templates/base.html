@@ -51,6 +51,17 @@
     </div>
   </div>
 
+  <!-- Page Content -->
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12">
+              <p class="lead">
+
+                  {% block body2 %}{% endblock %}
+          </div>
+      </div>
+  </div>
+
   <!-- Bootstrap core JavaScript -->
   <script href="{{ url_for('static', filename='jquery/jquery.slim.min.js' ) }}"></script>
   <script href="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js' ) }}"></script>
