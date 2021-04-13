@@ -40,6 +40,10 @@ I have been researching [this](https://www.programiz.com/dsa/huffman-coding) to 
 # Future improvements
 1. Finish the Huffman encoding and decoding algorithm
 2. Support file uploading other than local directory
+3. Investigate other compression algorithms to compare performance <br/>
+3.1 [LZ77](https://github.com/manassra/LZ77-Compressor) initial run for the supported `sample_ecg_raw.bin` reduces the storage footprint from 13K to 11K.
 
 
 
+
+>Author: [Khoa Le](https://www.linkedin.com/in/khoalenguyendang/) | lendgkhoa@gmail.com
