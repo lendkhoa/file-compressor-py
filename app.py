@@ -1,7 +1,9 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from pathlib import Path
 import binascii
+import markdown
 import gzip
 import os
 
@@ -23,6 +25,7 @@ class Todo(db.Model):
 class BinaryFile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(200), nullable=False)
+    size = db.Column(db.Integer, nullable=False)
     data = db.Column(db.LargeBinary)
 
 @app.route('/', methods=['POST', 'GET'])
@@ -32,6 +35,18 @@ def index():
 
 @app.route('/software_design')
 def render_design():
+    with open('./doc/software_design.md', 'r') as f:
+        text = f.read()
+        html = markdown.markdown(text)
+
+    with open('./templates/software_design.html', 'w') as f:
+        f.write("{% extends 'base.html' %}")
+        f.write("{% block head %}")
+        f.write("Software Design Document")
+        f.write("{% endblock %}")
+        f.write("{% block body2 %}")
+        f.write(html)
+        f.write("{% endblock %}")
     return render_template('software_design.html')
 
 @app.route('/uploader', methods = ['POST'])
@@ -39,14 +54,20 @@ def upload_file():
     f = request.files['file']
     if f.filename == '':
         return redirect('/')
-
     file_name = f.filename
-    new_file = BinaryFile(file_name=file_name, data=f.read())
+    file_ptr = Path(file_name)
+    #size = os.path.getsize(file_name)
+    size = file_ptr.stat().st_size
+    print("?")
+    print(file_name)
+    print(size)
     try:
+        new_file = BinaryFile(file_name=file_name, data=f.read(), size=size)
         db.session.add(new_file)
         db.session.commit()
         return redirect('/')
     except Exception as e:
+        print(e)
         return "Exception uploading file"
 
 @app.route('/delete/<int:id>')
@@ -61,7 +82,15 @@ def delete(id):
 
 @app.route('/compress/<int:id>')
 def compress(id):
-    return render_template('/compression_result.html')
+    try:
+        file = BinaryFile.query.get_or_404(id)
+        print(">>>")
+        print(file.size)
+        #compressed_file = compress_file(file)
+        return render_template('/compression_result.html', file = file)
+    except Exception as e:
+        print(e)
+        return "Exception compressing file"
 
 def read_file():
     f_in = open('sample_ecg_raw.bin', 'rb')
