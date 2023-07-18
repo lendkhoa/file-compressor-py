@@ -18,4 +18,4 @@ From python3 terminal \\
 *** Start application
 python3 app.py
 
-[[file: ./home.png][Home page]]
+![Home page](./home.png)
