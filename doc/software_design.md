@@ -1,12 +1,12 @@
 >Last update Mon Apr 12, 2021
 
-The Bodyport system must be able to upload a measurement within a reasonable amount of time. A key factor is file size - more specifically the file size of the raw signal. Therefore, the software goals are: <br />
+The system must be able to upload a measurement within a reasonable amount of time. A key factor is file size - more specifically the file size of the raw signal. Therefore, the software goals are: <br />
 - Support local directory file upload and basic CRUD operations of file <br />
 - Compress selected file using Huffman coding algorithm <br />
 - Display compression analysis <br />
 
 # Project structure
-**bodyport-assessment/ <br/>**
+**project/ <br/>**
 &nbsp;  app.py: Application starting point <br/>
 &nbsp;  doc/ Contains software design document <br/>
 &nbsp;  static/ Contains stylesheet and bootstrap <br/>

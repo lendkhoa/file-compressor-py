@@ -1,4 +1,4 @@
-* Bodyport Take home assessment 
+* Compressor of files
 /Tue Apr 6, 2021/
 
 ** Build
